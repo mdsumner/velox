@@ -34,7 +34,7 @@
         <h1>
 <a id="velox" class="anchor" href="#velox" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>velox</h1>
 
-<p>Velox is an R package for performing fast extraction and manipulation operations on geographic raster data. velox is fast because all raster computations are performed in C++ (using the excellent <a href="http://www.rcpp.org/">Rcpp API</a>), and all data is held in memory. velox is intended to be used together with the <a href="https://cran.r-project.org/web/packages/raster/index.html">raster</a> package, to which it provides a straightforward interface.</p>
+<p>Velox is an R package for performing fast extraction and manipulation operations on geographic raster data. velox is fast because all raster computations are performed in C++ (using the excellent <a href="http://www.rcpp.org/">Rcpp API</a>), and all data is held in memory. velox is intended to be used together with the <a href="https://cran.r-project.org/package=raster">raster</a> package, to which it provides a straightforward interface.</p>
 
 <p>Currently, the following operations are implemented in velox:</p>
 
@@ -48,21 +48,27 @@
 </ul>
 
 <h2>
+<a id="status" class="anchor" href="#status" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Status</h2>
+
+<p><a href="https://travis-ci.org/hunzikp/velox"><img src="https://travis-ci.org/hunzikp/velox.svg?branch=master" alt="Travis-CI Build Status"></a></p>
+
+<h2>
 <a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
 
-<p>velox is currently only available for Unix machines (tested on CentOS 6, Ubuntu 14.04/15.10/16.04).</p>
+<p>Velox should work on all major operating systems (Linux, Mac OS, Windows).</p>
 
 <h3>
 <a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dependencies</h3>
 
-<p>For its read and write methods, velox requires the external GDAL library (&gt;= 1.6.3). 
-On Debian/Ubuntu, enter</p>
+<p>For its read and write methods, velox requires the <a href="https://cran.r-project.org/package=rgdal">rgdal</a> package, which relies on the external
+GDAL (&gt;= 1.6.3) and PROJ.4 (&gt;= 4.4.9) libraries. 
+On Debian/Ubuntu (&gt;= 12.04), GDAL and PROJ.4 can be installbed by entering</p>
 
-<div class="highlight highlight-source-shell"><pre>sudo apt-get install libgdal-dev</pre></div>
+<div class="highlight highlight-source-shell"><pre>sudo apt-get install libgdal-dev libproj-dev</pre></div>
 
 <p>in a terminal.
-Further, velox depends on the <a href="https://cran.r-project.org/web/packages/rgeos/index.html">rgeos</a> package, which in turn requires the external GEOS library (&gt;= 3.2.0).
-To install GEOS on Debian/Ubuntu, enter</p>
+Further, velox depends on the <a href="https://cran.r-project.org/package=rgeos">rgeos</a> package, which in turn requires the external GEOS library (&gt;= 3.2.0).
+To install GEOS on Debian/Ubuntu (&gt;= 12.04), enter</p>
 
 <div class="highlight highlight-source-shell"><pre>sudo apt-get install libgeos-dev</pre></div>
 
@@ -71,7 +77,11 @@ To install GEOS on Debian/Ubuntu, enter</p>
 <h3>
 <a id="r-package" class="anchor" href="#r-package" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>R Package</h3>
 
-<p>Once the system dependencies are available, you can install velox from within R using the <code>install_github</code> function from the <a href="https://cran.r-project.org/web/packages/devtools/index.html">devtools</a> package:</p>
+<p>Once the system dependencies are available, you can either install velox from CRAN</p>
+
+<div class="highlight highlight-source-r"><pre>install.packages(<span class="pl-s"><span class="pl-pds">"</span>velox<span class="pl-pds">"</span></span>)</pre></div>
+
+<p>or you can install the development version using the <code>install_github</code> function from the <a href="https://cran.r-project.org/package=devtools">devtools</a> package:</p>
 
 <div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">devtools</span>)
 install_github(<span class="pl-s"><span class="pl-pds">"</span>hunzikp/velox<span class="pl-pds">"</span></span>)</pre></div>
@@ -80,9 +90,9 @@ install_github(<span class="pl-s"><span class="pl-pds">"</span>hunzikp/velox<spa
 <a id="benchmarking" class="anchor" href="#benchmarking" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Benchmarking</h2>
 
 <p>The following performance tests were peformed on a i7-4810MQ CPU at 2.80GHz, using <code>raster</code> 2.5-8, PostgreSQL 9.5 and PostGIS 2.2.
-See <a href="https://github.com/hunzikp/velox/tree/master/vignettes/benchmarking.R">here</a> for the underlying R script.</p>
+See <a href="vignettes/benchmarking.R">here</a> for the underlying R script.</p>
 
-<p><img src="https://raw.githubusercontent.com/hunzikp/velox/master/vignettes/benchmark.png" alt="" title="velox benchmark"></p>
+<p><img src="vignettes/benchmark.png" alt="" title="velox benchmark"></p>
 
 <h2>
 <a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
