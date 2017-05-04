@@ -1,3 +1,83 @@
+#' @title Min focal
+#'
+#' @name VeloxRaster_minFocal
+#'
+#' @description
+#' Applies a median filter of dimension \code{wcol x wrow} to a VeloxRaster.
+#'
+#' @details
+#' Padding is currently not implemented.
+#'
+#' @param wrow y dimension of filter. Must be uneven integer.
+#' @param wcol x dimension of filter. Must be uneven integer.
+#' @param bands Numeric vector indicating bands where filter is applied.
+#'
+#' @return Void.
+#'
+#' @examples
+#' ## Make VeloxRaster with two bands
+#' mat1 <- matrix(1:100, 10, 10)
+#' mat2 <- matrix(100:1, 10, 10)
+#' vx <- velox(list(mat1, mat2), extent=c(0,1,0,1), res=c(0.1,0.1),
+#'             crs="+proj=longlat +datum=WGS84 +no_defs")
+#' ## Min focal
+#' vx$minFocal(wrow=5, wcol=5, bands=c(1,2))
+#'
+NULL
+VeloxRaster$methods(minFocal = function(wrow, wcol, bands=1) {
+  "See \\code{\\link{VeloxRaster_medianFocal}}."
+  if (any(!(bands %in% 1:nbands))) {
+    stop(paste("VeloxRaster only has", nbands, "bands."))
+  }
+  if (wrow < 0 | wcol < 0 | (wrow %% 2) == 0 | (wcol %% 2) == 0) {
+    stop(paste("wrow and wcol must be positive uneven integers."))
+  }
+  for (i in bands) {
+    rasterbands[[i]] <<- minfocal_cpp(rasterband=rasterbands[[i]], wrow=wrow, wcol=wcol, band=i)
+  }
+})
+
+
+#' @title Max focal
+#'
+#' @name VeloxRaster_maxFocal
+#'
+#' @description
+#' Applies a median filter of dimension \code{wcol x wrow} to a VeloxRaster.
+#'
+#' @details
+#' Padding is currently not implemented.
+#'
+#' @param wrow y dimension of filter. Must be uneven integer.
+#' @param wcol x dimension of filter. Must be uneven integer.
+#' @param bands Numeric vector indicating bands where filter is applied.
+#'
+#' @return Void.
+#'
+#' @examples
+#' ## Make VeloxRaster with two bands
+#' mat1 <- matrix(1:100, 10, 10)
+#' mat2 <- matrix(100:1, 10, 10)
+#' vx <- velox(list(mat1, mat2), extent=c(0,1,0,1), res=c(0.1,0.1),
+#'             crs="+proj=longlat +datum=WGS84 +no_defs")
+#' ## Max focal
+#' vx$maxFocal(wrow=5, wcol=5, bands=c(1,2))
+#'
+NULL
+VeloxRaster$methods(maxFocal = function(wrow, wcol, bands=1) {
+  "See \\code{\\link{VeloxRaster_medianFocal}}."
+  if (any(!(bands %in% 1:nbands))) {
+    stop(paste("VeloxRaster only has", nbands, "bands."))
+  }
+  if (wrow < 0 | wcol < 0 | (wrow %% 2) == 0 | (wcol %% 2) == 0) {
+    stop(paste("wrow and wcol must be positive uneven integers."))
+  }
+  for (i in bands) {
+    rasterbands[[i]] <<- maxfocal_cpp(rasterband=rasterbands[[i]], wrow=wrow, wcol=wcol, band=i)
+  }
+})
+
+
 #' @title Median focal
 #'
 #' @name VeloxRaster_medianFocal
